@@ -1,6 +1,6 @@
-import java.io.IOException;
+package display;
 
-public class MatrixDisplay {
+public class ConsoleMatrixDisplay {
     /**
      * ASCII code 176 = ░ ( Graphic character, low density dotted )
      */
@@ -53,7 +53,7 @@ public class MatrixDisplay {
     /**
      * 2D content : Line, row
      */
-    public MatrixDisplay(float[][] contentDef) {
+    public ConsoleMatrixDisplay(float[][] contentDef) {
         contentFrames = new float[1][][];
         contentFrames[0] = contentDef;
         high = contentDef.length;
@@ -81,8 +81,10 @@ public class MatrixDisplay {
             for (int r = 0; r < line.length; r++) {
                 float dot = line[r];
 
-                if (dot != 0)
+                if (dot == 1)
                     display.append(DOT_ON).append(DOT_ON);
+                else if (dot < 1 && dot > 0)
+                    display.append(DOT_MED).append(DOT_MED);
                 else
                     display.append(DOT_OFF).append(DOT_OFF);
             }
@@ -101,7 +103,7 @@ public class MatrixDisplay {
         frameLineLower = new StringBuffer(frameLine).append(BOX_LL).reverse().append(BOX_LR);
     }
 
-    public MatrixDisplay print(String caption) {
+    public ConsoleMatrixDisplay print(String caption) {
         this.printAll(caption, 1);
 
         return this;
@@ -111,21 +113,28 @@ public class MatrixDisplay {
         if (frameLineUpper == null || frameLineLower == null)
             bufferingFrameLine();
 
+        var wide = contentFrames[0][0].length;
+        var hight = contentFrames[0].length;
+
         for (int l = 0; l < loopCnt; l++) {
             for (int f = 0; f < contentFrames.length; f++) {
                 StringBuffer fullBuffer = new StringBuffer();
                 fullBuffer.append(frameLineUpper);
                 fullBuffer.append(' ').append(CAP_START).append(' ').append(caption).append(' ').append(CAP_END);
-                fullBuffer.append(' ').append("[f:").append(f).append(",l:").append(l).append(']').append('\n');
+                fullBuffer.append(' ').append("◘").append(wide).append("x").append(hight);
+                fullBuffer.append(" #").append(l+1).append(".").append(f+1).append('\n');
                 fullBuffer.append(bufferingContentFrame(f));
                 fullBuffer.append(frameLineLower);
 
+                /*
                 try {
                     System.out.println("sleep...");
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     System.err.println("Not sleep");
                 }
+                */
+
                 System.out.println(fullBuffer.toString());
             }
         }

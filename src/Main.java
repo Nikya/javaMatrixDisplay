@@ -1,112 +1,38 @@
+import display.ConsoleMatrixDisplay;
+import display.MatrixOutOfBoundsException;
+import generator.ComputedGenerator;
+import generator.ManualGenerator;
+
 public class Main {
 
     public static void main(String... args) {
 
-        System.out.println("--- Java MatrixDisplay Display ---");
+        System.out.println("--- Java display.MatrixDisplay Display ---");
+        try {
+            // Manual
+            new ConsoleMatrixDisplay(ManualGenerator.basic2x2()).print("Manual 2x2");
+            new ConsoleMatrixDisplay(ManualGenerator.checkerboardl()).print("Manual Checkerboardl");
+            new ConsoleMatrixDisplay(ManualGenerator.squareCentered()).print("Manual Square");
+            new ConsoleMatrixDisplay(ManualGenerator.triangle12()).print("Manual Triangle 12");
+            new ConsoleMatrixDisplay(ManualGenerator.triangle13()).print("Manual Triangle 13");
 
-        new MatrixDisplay(mx_one()).print("ONE");
-        new MatrixDisplay(mx_manualCheckerboardl()).print("Manual Checkerboardl");
-        new MatrixDisplay(mx_manualSquare()).print("Manual Square");
-        new MatrixDisplay(mx_manualTriangle12()).print("Manual Triangle 12");
-        new MatrixDisplay(mx_manualTriangle13()).print("Manual Triangle 13");
+            // Computed
+            new ConsoleMatrixDisplay(ComputedGenerator.generateSquare(14, 12, 4)).print("Computed square 4");
+            new ConsoleMatrixDisplay(ComputedGenerator.generateSquare(23, 17, 10)).print("Computed square 10");
+            new ConsoleMatrixDisplay(ComputedGenerator.generateRectangle(18, 22, 5, 3)).print("Computed rectangle 5x3");
 
-        var ma = new MatrixDisplay(mx_manualTriangleF1());
-        ma.addFrame(mx_manualTriangleF2());
+            new ConsoleMatrixDisplay(ManualGenerator.tinycircle()).print("Tiny circle 5");
+            new ConsoleMatrixDisplay(ComputedGenerator.generateCircle(32, 32, 23)).print("Computed Circle 5");
+
+        /*
+        var ma = new display.MatrixDisplay(ManualGenerator.manualTriangleF1());
+        ma.addFrame(ManualGenerator.manualTriangleF2());
         ma.printAll("Animated Triangle", 6);
-    }
+         */
 
-    private static float[][] mx_one() {
-        return new float[][]{
-                {0, 1},
-                {1, 0}
-        };
-    }
-
-    private static float[][] mx_manualCheckerboardl() {
-        return new float[][]{
-                {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-                {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
-        };
-    }
-
-    private static float[][] mx_manualSquare() {
-        return new float[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                {0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0},
-                {0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        };
-    }
-
-    private static float[][] mx_manualTriangle13() {
-        return new float[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-        };
-    }
-
-    private static float[][] mx_manualTriangle12() {
-        return new float[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-        };
-    }
-
-    private static float[][] mx_manualTriangleF1() {
-        return new float[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        };
-    }
-
-    private static float[][] mx_manualTriangleF2() {
-        return new float[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        };
+        } catch (MatrixOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
+            System.err.println("It's not possible to get out of the matrix. Trying to draw outside of the matrix bounds - " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
