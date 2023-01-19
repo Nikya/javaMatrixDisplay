@@ -128,10 +128,10 @@ public class ConsoleMatrixDisplay {
 
                 /*
                 try {
-                    System.out.println("sleep...");
+                    TinyLogger.debug("sleep...");
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    System.err.println("Not sleep");
+                    TinyLogger.warn("Not sleep");
                 }
                 */
 

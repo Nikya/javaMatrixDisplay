@@ -9,7 +9,7 @@ public class ManualGenerator {
         };
     }
 
-    public static float[][] checkerboardl() {
+    public static float[][] checkerboard() {
         return new float[][]{
                 {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1},
                 {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
